@@ -1,0 +1,6 @@
+.seminar-hall {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 0 auto;
+}
