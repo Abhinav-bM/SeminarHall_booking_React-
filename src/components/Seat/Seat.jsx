@@ -1,13 +1,13 @@
+// src/components/Seat.jsx
 import React from 'react';
-import './Seat.css';
 
-const Seat = ({ seatNumber, isBooked, onClick }) => {
+const Seat = ({ number, status, onClick }) => {
   return (
     <div
-      className={`seat ${isBooked ? 'booked' : ''}`}
-      onClick={() => onClick(seatNumber)}
+      className={`seat ${status ? 'booked' : 'available'}`}
+      onClick={() => onClick(number)}
     >
-      {seatNumber}
+      {number}
     </div>
   );
 };

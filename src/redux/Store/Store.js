@@ -1,9 +1,10 @@
+// src/redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import bookingReducer from '../Reducer.js/Reducer';
+import seatsReducer from '../Reducer.js/Reducer';
 
 const store = configureStore({
   reducer: {
-    booking: bookingReducer,
+    seats: seatsReducer,
   },
 });
 

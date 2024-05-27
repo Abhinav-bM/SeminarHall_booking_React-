@@ -1,42 +1,26 @@
-// const initialState = {
-//     seats: Array(30).fill(null).map((_, index) => ({
-//       id: index,
-//       booked: false,
-//     })),
-//   };
+// src/redux/reducers.js
+import { createSlice } from '@reduxjs/toolkit';
+import { loadState, saveState } from '../localStorage/LocalStorage';
 
-//   const seatReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//       case 'BOOK_SEAT':
-//         return {
-//           ...state,
-//           seats: state.seats.map(seat =>
-//             seat.id === action.payload ? { ...seat, booked: true } : seat
-//           ),
-//         };
-//       default:
-//         return state;
-//     }
-//   };
+const initialState = loadState() || {};
 
-//   export default seatReducer;
+const seatsSlice = createSlice({
+  name: 'seats',
+  initialState,
+  reducers: {
+    bookSeat: (state, action) => {
+      const { date, seatNumber, name, phone } = action.payload;
+      if (!state[date]) {
+        state[date] = {};
+      }
+      state[date][seatNumber] = { name, phone };
+    },
+    setSeats: (state, action) => {
+      return action.payload;
+    },
+  },
+});
 
-const initialState = {
-  bookings: JSON.parse(localStorage.getItem("bookings")) || {},
-};
+export const { bookSeat, setSeats } = seatsSlice.actions;
 
-const bookingReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "BOOK_SEAT":
-      const newBookings = {
-        ...state.bookings,
-        [action.payload.seatNumber]: action.payload.userName,
-      };
-      localStorage.setItem("bookings", JSON.stringify(newBookings));
-      return { ...state, bookings: newBookings };
-    default:
-      return state;
-  }
-};
-
-export default bookingReducer;
+export default seatsSlice.reducer;
